@@ -1,0 +1,873 @@
+_type: export
+__export_format: 4
+__export_date: 2022-08-30T04:16:54.363Z
+__export_source: insomnia.desktop.app:v2022.4.2
+resources:
+  - _id: req_2c272432fef74598ac80d518a9909e0b
+    parentId: wrk_9aa65ae0937b4db49c4ab9b104d75c28
+    modified: 1658927642576
+    created: 1658927642576
+    url: ""
+    name: New Request
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1658927642576
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: wrk_9aa65ae0937b4db49c4ab9b104d75c28
+    parentId: null
+    modified: 1658927642469
+    created: 1658927642469
+    name: New Document
+    description: ""
+    scope: design
+    _type: workspace
+  - _id: env_7b965aee879abac8947aae0b5aa81883ac555ae3
+    parentId: wrk_9aa65ae0937b4db49c4ab9b104d75c28
+    modified: 1658927642507
+    created: 1658927642507
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1658927642508
+    _type: environment
+  - _id: jar_7b965aee879abac8947aae0b5aa81883ac555ae3
+    parentId: wrk_9aa65ae0937b4db49c4ab9b104d75c28
+    modified: 1658927642514
+    created: 1658927642514
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_4c43dbd488c2427ca85be95176457ae4
+    parentId: wrk_9aa65ae0937b4db49c4ab9b104d75c28
+    modified: 1661831883122
+    created: 1658927642494
+    fileName: example.yaml
+    contents: "openapi: 3.0.0
+
+      info:
+
+      \  title: Open API for Kanban
+
+      \  version: 1.0.0
+
+      \  description:
+
+      \    This is the document for open API of kanban app. It is uses
+      'REST' software architecture.
+
+
+
+
+      servers:
+
+      \  - url: http://127.0.0.1:5000/
+
+      paths:
+
+      \ /api/venue/get/{int:venue_id}:
+
+      \   description: >-
+
+      \     End point to read, update, delete list.
+
+      \   get:
+
+      \    description: operation to get a detail of list
+
+      \    tags:
+
+      \      - APIs for lists
+
+      \    parameters:\ 
+
+      \      - name: listname
+
+      \        in: path
+
+      \        required: True
+
+      \    responses:
+
+      \      \"200\":
+
+      \        description: Everything went fine
+
+      \        content:
+
+      \          application/json:
+
+      \            schema:
+
+      \              title: list object
+
+      \              type: object
+
+      \              properties:
+
+      \                list_id:
+
+      \                  type: integer
+
+      \                  example: 201
+
+      \                title:
+
+      \                  type: string
+
+      \                  example: todo
+
+      \                description:
+
+      \                   type: string
+
+      \                   example: These are need to be done
+
+      \      \"400\":
+
+      \        description: Bad request
+
+      \      \"404\":
+
+      \        description: Resource not found
+
+      \      \"500\":
+
+      \        description: internal server error.
+
+      \   put:
+
+      \     description: To update the list details
+
+      \     tags:
+
+      \      - APIs for lists
+
+      \     parameters:
+
+      \       - name: listname
+
+      \         in: path
+
+      \         required: True
+
+      \     requestBody:
+
+      \       content:
+
+      \         application/json:
+
+      \           schema:
+
+      \             type: object
+
+      \             properties:
+
+      \               title:
+
+      \                 type: string
+
+      \                 example: backlog
+
+      \     responses:
+
+      \       \"200\":
+
+      \         description: Succesfully updated.
+
+      \         content:
+
+      \           application/json:
+
+      \             schema:
+
+      \               title: list object
+
+      \               type: object
+
+      \               properties:
+
+      \                 list_id:
+
+      \                   type: integer
+
+      \                   example: 101
+
+      \                 title:
+
+      \                   type: string
+
+      \                   example: backlog
+
+      \                 description:
+
+      \                   type: string
+
+      \                   example: these were needed to be done
+
+      \       \"400\":
+
+      \         description: Bad request.
+
+      \         content:
+
+      \           application/json:
+
+      \             schema:
+
+      \               type: object
+
+      \               properties:
+
+      \                 error_code:
+
+      \                   type: string
+
+      \                   example: BE_001
+
+      \                 error_message:
+
+      \                   type: string
+
+      \                   example: Title should not be none.
+
+      \       \"404\":
+
+      \         description: Resource not found.
+
+      \       \"500\":
+
+      \         description: Internal sever error
+
+      \   delete:\ 
+
+      \    description: operation to delete a list.
+
+      \    tags:
+
+      \      - APIs for lists
+
+      \    parameters:\ 
+
+      \      - name: listname
+
+      \        in: path
+
+      \        required: True
+
+      \    responses:
+
+      \      \"200\":
+
+      \        description: Succesfully deleted.
+
+      \      \"400\":
+
+      \        description: Bad Request.
+
+      \      \"404\":
+
+      \        description: Resource not found.
+
+      \      \"500\":
+
+      \        description: Internal server error.
+
+      \       \ 
+
+      \       \ 
+
+      \       \ 
+
+      \ /api/lists:
+
+      \   description: To create a new list.
+
+      \   post:
+
+      \     description: To create a new list
+
+      \     tags:
+
+      \      - APIs for lists
+
+      \     requestBody:
+
+      \       content:
+
+      \         application/json:
+
+      \           schema:
+
+      \             type: object
+
+      \             properties:
+
+      \              title:
+
+      \                type: string
+
+      \                example: in process
+
+      \              description:
+
+      \                type: string
+
+      \                example: These are in process.
+
+      \     responses:
+
+      \       \"200\":
+
+      \         description: Successfully created.
+
+      \         content:
+
+      \           application/json:
+
+      \             schema:
+
+      \               title: list object
+
+      \               type: object
+
+      \               properties:
+
+      \                 list_id:
+
+      \                   type: integer
+
+      \                   example: 101
+
+      \                 title:
+
+      \                   type: string
+
+      \                   example: in process
+
+      \                 description:
+
+      \                   type: string
+
+      \                   example: these are in process.
+
+      \       \"400\":
+
+      \         description: Bad request.
+
+      \       \"404\":
+
+      \         description: Resource not found
+
+      \       \"500\":
+
+      \         description: Internal server error\ 
+
+      \        \ 
+
+      \ /api/tasks/{taskname}:
+
+      \   description: >-
+
+      \     End point to read, update, delete a task.
+
+      \   get:
+
+      \    description: operation to get a detail of task.
+
+      \    tags:
+
+      \      - APIs for tasks
+
+      \    parameters:\ 
+
+      \      - name: taskname
+
+      \        in: path
+
+      \        required: True
+
+      \    responses:
+
+      \      \"200\":
+
+      \        description: Everything went fine
+
+      \        content:
+
+      \          application/json:
+
+      \            schema:
+
+      \              title: task object
+
+      \              type: object
+
+      \              properties:
+
+      \                task_id:
+
+      \                  type: integer
+
+      \                  example: 201
+
+      \                title:
+
+      \                  type: string
+
+      \                  example: mad\ 
+
+      \                content:
+
+      \                   type: string
+
+      \                   example: Assignment
+
+      \                deadline:
+
+      \                  type: string
+
+      \                  example: 2022-08-30
+
+      \                complete:
+
+      \                  type: integer
+
+      \                  example: 1
+
+      \                list_id:
+
+      \                  type: integer
+
+      \                  example: 201
+
+      \                 \ 
+
+      \      \"400\":
+
+      \        description: Bad request
+
+      \      \"404\":
+
+      \        description: Resource not found
+
+      \      \"500\":
+
+      \        description: internal server error.
+
+      \   put:
+
+      \     description: To update the task details
+
+      \     tags:
+
+      \      - APIs for tasks
+
+      \     parameters:
+
+      \       - in: path
+
+      \         name: taskname
+
+      \         required: True
+
+      \        \ 
+
+      \     requestBody:
+
+      \       content:
+
+      \         application/json:
+
+      \           schema:
+
+      \             type: object
+
+      \             properties:
+
+      \               title:
+
+      \                 type: string
+
+      \                 example: sc
+
+      \               content:
+
+      \                 type: string
+
+      \                 example: Assignment
+
+      \               deadline:
+
+      \                 type: string
+
+      \                 example: 2022-09-01
+
+      \               complete:
+
+      \                 type: integer
+
+      \                 example: 1
+
+      \               list_id:
+
+      \                 type: integer
+
+      \                 example: 201
+
+      \                \ 
+
+      \     responses:
+
+      \       \"200\":
+
+      \         description: Succesfully updated.
+
+      \         content:
+
+      \           application/json:
+
+      \             schema:
+
+      \               title: task object
+
+      \               type: object
+
+      \               properties:
+
+      \                 task_id:
+
+      \                   type: integer
+
+      \                   example: 101
+
+      \                 title:
+
+      \                   type: string
+
+      \                   example: mad
+
+      \                 content:
+
+      \                   type: string
+
+      \                   example: assignment
+
+      \                 deadline:
+
+      \                   type: string
+
+      \                   example: 2022-09-01
+
+      \                 complete:
+
+      \                   type: integer
+
+      \                   example: 1
+
+      \                 list_id:
+
+      \                   type: integer
+
+      \                   example: 201
+
+      \       \"400\":
+
+      \         description: Bad request.
+
+      \       \"404\":
+
+      \         description: Resource not found.
+
+      \       \"500\":
+
+      \         description: Internal sever error
+
+      \   delete:\ 
+
+      \    description: operation to delete a task.
+
+      \    tags:
+
+      \      - APIs for tasks
+
+      \    parameters:\ 
+
+      \      - name: taskname
+
+      \        in: path
+
+      \        required: True
+
+      \    responses:
+
+      \      \"200\":
+
+      \        description: Succesfully deleted.
+
+      \      \"400\":
+
+      \        description: Bad Request.
+
+      \      \"404\":
+
+      \        description: Resource not found.
+
+      \      \"500\":
+
+      \        description: Internal server error.
+
+      \       \ 
+
+      \       \ 
+
+      \       \ 
+
+      \ /api/tasks:
+
+      \   description: To create a new task.
+
+      \   post:
+
+      \     description: To create a new task
+
+      \     tags:
+
+      \      - APIs for tasks
+
+      \     requestBody:
+
+      \       content:
+
+      \         application/json:
+
+      \           schema:
+
+      \             type: object
+
+      \             properties:
+
+      \              title:
+
+      \                type: string
+
+      \                example: pdsa
+
+      \              content:
+
+      \                type: string
+
+      \                example: programming assignment.
+
+      \              deadline:
+
+      \                type: string
+
+      \                example: 2022-09-09
+
+      \              complete:
+
+      \                type: integer
+
+      \                example: 0
+
+      \              list_id:
+
+      \                type: integer
+
+      \                example: 101
+
+      \     responses:
+
+      \       \"200\":
+
+      \         description: Successfully created.
+
+      \         content:
+
+      \           application/json:
+
+      \             schema:
+
+      \               title: list object
+
+      \               type: object
+
+      \               properties:
+
+      \                 list_id:
+
+      \                   type: integer
+
+      \                   example: 101
+
+      \                 title:
+
+      \                   type: string
+
+      \                   example: in process
+
+      \                 description:
+
+      \                   type: string
+
+      \                   example: these are in process.
+
+      \       \"400\":
+
+      \         description: Bad request.
+
+      \       \"404\":
+
+      \         description: Resource not found
+
+      \       \"500\":
+
+      \         description: Internal server error  \ 
+
+      \ /api/listdetails/{listname}:
+
+      \   description: End point for additional feature for a particular
+      list.
+
+      \   get:
+
+      \     description: Get details of a list.
+
+      \     tags:
+
+      \       - Additional APIs
+
+      \     parameters:
+
+      \       - name: listname
+
+      \         in: path
+
+      \         required: True
+
+      \     responses:
+
+      \       \"200\":
+
+      \         description: Everything went fine
+
+      \         content:
+
+      \           application/json:
+
+      \             schema:
+
+      \               type: object
+
+      \               properties:
+
+      \                 Completed_Tasks:
+
+      \                   type: string
+
+      \                   example: 4/6
+
+      \                 Deadline_passed_Tasks:
+
+      \                   type: string
+
+      \                   example: 2/6
+
+      \                 Bar Graph:
+
+      \                   type: string
+
+      \                   example: ../static/images/backlog.png
+
+      \       \"400\":
+
+      \         description: Bad request
+
+      \       \"404\":
+
+      \         description: Resource not found
+
+      \       \"500\":
+
+      \         description: Internal server error
+
+      \ /api/taskdetails/{date}:
+
+      \   description: Get task details
+
+      \   get:
+
+      \     description: Get all completed taks on a given date.
+
+      \     tags:
+
+      \       - Additional APIs
+
+      \     parameters:
+
+      \       - name: date
+
+      \         in: path
+
+      \         required: True
+
+      \     responses:
+
+      \       \"200\":
+
+      \         description: Everything went fine
+
+      \         content:
+
+      \           application/json:
+
+      \             schema:
+
+      \               type: object
+
+      \               properties:
+
+      \                 tasks:
+
+      \                   type: array
+
+      \                   example: [mad, pdsa]
+
+      \       \"400\":
+
+      \         description: Bad request
+
+      \       \"404\":
+
+      \         description: Resource not found
+
+      \       \"500\":
+
+      \         description: Internal server error
+
+      \    \ 
+
+      \                \ 
+
+      \  "
+    contentType: yaml
+    _type: api_spec
+  - _id: uts_dae1fa77bc9148ca991bb88c58c3b79d
+    parentId: wrk_9aa65ae0937b4db49c4ab9b104d75c28
+    modified: 1658927642658
+    created: 1658927642658
+    name: Example Test Suite
+    _type: unit_test_suite

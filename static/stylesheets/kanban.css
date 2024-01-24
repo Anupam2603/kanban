@@ -1,0 +1,11 @@
+
+.username{
+	color: #0000EE;
+}
+.class2 {
+			background-color: beige;
+}
+#title input: before{
+	content: " *";
+	color:  red;
+}

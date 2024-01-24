@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>
+		All Lists
+	</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
+	<link rel="stylesheet", href="{{url_for('static', filename='stylesheets/kanban.css')}}">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+
+</head>
+<body>
+	<div>
+		<div class="container text-center">
+			<div class="row">
+				<div class="col-1 username">
+				Welcome {{ current_user.email }}
+				</div>
+				<div class="col-10">
+
+				</div>
+				<div class="col-1">
+					<a href="/summary">Summary</a> | <a href="/logout">Logout</a>
+				</div>
+			</div>
+		</div>
+	</div><br><br>
+	<div class="container text-center">
+		<div class="row">
+			<div class="col-1">
+			</div>
+			<div class="col">
+				<h1>My Kanban Board</h1>
+			</div>
+			<div class="col-1">
+			</div>
+		</div>
+	</div><br><br>
+	<div style="border-collapse: collapse;">
+		<div class="container text-center" >
+			<div class="row">
+				<div class="col-1">
+				</div>
+				{% for list in lists %}
+				<div class="col border class1">
+					<div class="dropdown show">
+					  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    {{ list["title"] }}
+					  </a>
+
+					  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+					    <a class="dropdown-item" href="/editlist/{{ list["title"] }}">Edit</a>
+					    <a class="dropdown-item" href="/deletelist/{{ list["title"] }}">Delete</a>
+					  </div>
+					</div><br>
+					{% for task in list["tasks"] %}
+					<div class="container text-center border border-primary class2">
+						<div class="row">
+							<div class="col-1">
+								{% if task["complete"] == 1 %}
+								<span style="color: green"><i class="bi bi-check-circle"></i></span>
+								{% endif %}
+							</div>
+							
+							<div class="col-10 text-center">
+								<div class="dropdown show">
+							  		<a class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							    		{{ task.title }}
+							  		</a>
+
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+										<a class="dropdown-item" href="/edittask/{{ list.title }}/{{ task.title }}">Edit</a>
+									    <a class="dropdown-item" href="/deletetask/{{ task.title }}">Delete</a>
+									</div>
+								</div><br>
+								<div><span style="font-weight: bold";>Content:</span> {{ task.content }}</div><br>
+								<div><span style="font-weight: bold;">Deadline:</span> {{ task.deadline }}</div><br>
+								<div class="dropdown show">
+							  		<a class="btn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							    		move
+							  		</a>
+
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+										{% for list_ in lists %}
+										{% if list != list_ %}
+										<a class="dropdown-item" href="/movetask/{{ task.title }}/{{ list_.title }}">{{ list_.title }}</a>
+										{% endif %}
+									    {% endfor %}
+									</div>
+								</div><br>
+							</div>
+							<div class="col-1">
+							</div>
+						</div>
+					</div><br>
+					{% endfor %}
+					<div class="container">
+						<a class="btn btn-primary" href="/addingtask/{{ list.title }}" role="button">Add Task</a>
+					</div>
+				</div>
+				{% endfor %}
+				<div class="col">
+					<a class="btn btn-primary" href="/addinglist" role="button">Add list</a>
+				</div>
+				<div class="col-1">
+				</div>
+			</div>
+		</div>
+	</div><br>
+	<div>
+		<div class="container text-center">
+			<footer>
+				<div class="row">
+					<div class="col-1 username">
+					</div>
+					<div class="col-10">
+						<a href="/export">Export lists as .csv</a>
+					</div>
+					<div class="col-1">
+					</div>
+				</div>
+			</footer>
+		</div>
+	</div><br><br>
+</body>
+</html>
